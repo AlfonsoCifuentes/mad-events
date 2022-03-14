@@ -43,14 +43,24 @@ class EventController extends AbstractController{
     #[Route("myEvents", name: "myEvents")]
     public function listEventos(EntityManagerInterface $em){
         $user = $this->getUser();
-        $eventos = $user -> getEventos();
-        return $this->render("/eventos/myEventos.html.twig", ["eventos" => $eventos, "usuarios" => $user]);
+        if($user){
+            $eventos = $user -> getEventos();
+            return $this->render("/eventos/myEventos.html.twig", ["eventos" => $eventos, "usuarios" => $user]);
+        }else{
+            return $this->render("inicio.html.twig");
+        }
+
     }
 
     #[Route("allEvents", name: "allEvents")]
     public function listAllEventos(EntityManagerInterface $em){
         $user = $this->getUser();
-        $eventos = $user -> getEventos();
-        return $this->render("/eventos/todosLosEventos.html.twig", ["eventos" => $eventos, "usuarios" => $user]);
+        if($user){
+            $eventos = $user -> getEventos();
+            return $this->render("/eventos/todosLosEventos.html.twig", ["eventos" => $eventos, "usuarios" => $user]);
+        }else{
+            return $this->render("inicio.html.twig");
+        }
+       
     }
 }
