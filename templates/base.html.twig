@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+        <meta charset="UTF-8">
+
+        
+        <link href="/css/main.css" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"   integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="   crossorigin="anonymous"></script>
+
+
+        <title>{% block title %}MAD Events{% endblock %}</title>
+
+        {% block stylesheets %}
+            
+            {{ encore_entry_link_tags('app') }}
+
+        {% endblock %}
+
+
+
+        {% block javascripts %}
+
+            {{ encore_entry_script_tags('app') }}
+
+        {% endblock %}
+
+    </head>
+ <body>
+        <nav class="navbar">
+          
+                <div>
+                <a class="logo" href="{{path("Inicio")}}"><span class="mad">MAD</span> EVENTS</a>
+                </div>
+
+                <div class="navDivLinks">  
+                        
+                        <a href="{{path("allEvents")}}">Ver todos los eventos</a>
+                        <a href="{{ path("myEvents") }}">Mis eventos publicados</a>
+                        <a href="{{ path("nuevoEvento") }}">Nuevo Evento</a>
+                </div>
+                <div class="navDivLinks">  
+            <a href="{{path("app_login")}}">Iniciar Sesión</a>
+            <a href="{{ path("app_logout") }}">Salir</a>
+        </div>
+        </nav>
+        <div>
+
+            {% block body %}
+
+            {% endblock %}
+
+            {% block js %} {% endblock %}
+        </div>
+    </body>
+</html>

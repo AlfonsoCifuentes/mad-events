@@ -1,0 +1,58 @@
+{% extends "./base.html.twig" %}
+
+{% block title %}Mis Eventos
+{% endblock %}
+
+{% block head %}
+
+	<link href="/css/main.css" rel="stylesheet"/>
+
+{% endblock %}
+{% block stylesheets %}
+
+	<link href="/css/main.css" rel="stylesheet"/>
+
+{% endblock %}
+
+{% block body %}
+	<div class="mainDiv">
+		<h1 class="standardH1">
+			Eventos en Madrid subidos por mí
+		</h1>
+
+
+		<div class="gallery">
+			{% for evento in eventos %}
+
+
+				<div class="card">
+					<div class="cardTitle">
+						<h4>
+							{{ evento.title }}
+						</h4>
+					</div>
+					<div class="cardImageDiv">
+						<img  class="cardImage" src={{ evento.image}} alt={{ evento.title}}></img>
+				    </div>
+				    <div class="cardText">
+                        <p>
+                            {{ evento.text }}
+                        </p>
+                        <p>
+                        <strong>Ubicación: </strong>
+                            {{ evento.ubication }}
+                        </p>
+                        <p>
+                        <strong>Fecha: </strong>
+                            {{ evento.date|date("d-m-Y") }}
+                        </p>
+				    </div>
+
+
+			    </div>
+
+		    {% endfor %}
+	    </div>
+
+    </div>
+{% endblock %}

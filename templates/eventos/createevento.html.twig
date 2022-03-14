@@ -1,0 +1,14 @@
+{% extends "./base.html.twig" %}
+{% block body %}
+
+<div class="mainDiv">
+
+    <div class="newEventForm">
+    {{form_start(EventoForm)}}
+    {{form_widget(EventoForm)}}
+    <button class="btn btn-lg btn-primary" type="submit">Publicar Evento</button>
+    {{form_end(EventoForm)}}
+
+</div>
+</div>
+{% endblock %}
