@@ -30,13 +30,8 @@ class Evento
     #[ORM\Column(type: 'date')]
     private $date;
 
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'eventos')]
-    public $Usuario;
-
-    public function __construct()
-    {
-        $this->Usuario = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'eventos')]
+    private $user;
 
     public function getId(): ?int
     {
@@ -103,20 +98,6 @@ class Evento
         return $this;
     }
 
-
-    public function __toString()
-    {
-        return $this->Usuario;
-    }
-
-    /**
-     * @return Collection<int, User>
-     */
-    public function getUsuario(): Collection
-    {
-        return $this->Usuario;
-    }
-
     public function getEventos(): Collection
     {
         return $this->Evento;
@@ -127,18 +108,14 @@ class Evento
         return $this->Evento;
     }
 
-    public function addUsuario(User $usuario): self
+    public function getUser(): ?User
     {
-        if (!$this->Usuario->contains($usuario)) {
-            $this->Usuario[] = $usuario;
-        }
-
-        return $this;
+        return $this->user;
     }
 
-    public function removeUsuario(User $usuario): self
+    public function setUser(?User $user): self
     {
-        $this->Usuario->removeElement($usuario);
+        $this->user = $user;
 
         return $this;
     }

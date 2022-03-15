@@ -27,8 +27,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private $password;
 
-    #[ORM\ManyToMany(targetEntity: Evento::class, mappedBy: 'Usuario')]
-    public $eventos;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Evento::class)]
+    private $eventos;
 
     public function __construct()
     {
@@ -117,7 +117,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->eventos->contains($evento)) {
             $this->eventos[] = $evento;
-            $evento->addUsuario($this);
+            $evento->setUser($this);
         }
 
         return $this;
@@ -126,7 +126,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeEvento(Evento $evento): self
     {
         if ($this->eventos->removeElement($evento)) {
-            $evento->removeUsuario($this);
+            // set the owning side to null (unless already changed)
+            if ($evento->getUser() === $this) {
+                $evento->setUser(null);
+            }
         }
 
         return $this;

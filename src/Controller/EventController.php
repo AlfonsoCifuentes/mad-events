@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Form\EventoType;
 use App\Form\FilterCategoryEventoFormType;
 use App\Entity\Evento;
+use App\Entity\User;
 use App\Form\EventoFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -53,14 +54,12 @@ class EventController extends AbstractController{
     }
 
     #[Route("allEvents", name: "allEvents")]
-    public function listAllEventos(EntityManagerInterface $em){
-        $user = $this->getUser();
-        if($user){
-            $eventos = $user -> getEventos();
-            return $this->render("/eventos/todosLosEventos.html.twig", ["eventos" => $eventos, "usuarios" => $user]);
-        }else{
-            return $this->render("inicio.html.twig");
-        }
-       
+    public function listAllEventos(EntityManagerInterface $em)
+    {
+       $eventos = $em->getRepository(Evento::class)->findAll();
+       return $this->render(
+           "/eventos/todosLosEventos.html.twig",
+           ["eventos" => $eventos]
+        );
     }
 }
