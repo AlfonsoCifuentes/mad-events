@@ -38,7 +38,15 @@ class EventController extends AbstractController{
             return $this->redirectToRoute("myEvents");
         }
 
-        return $this->renderForm("/eventos/createevento.html.twig", ["EventoForm" => $form]);
+        $user = $this->getUser();
+        if($user){
+            return $this->renderForm("/eventos/createevento.html.twig", ["EventoForm" => $form]);
+        }else{
+            return $this->render("inicio.html.twig");
+        }
+        
+
+        
     }
 
     #[Route("myEvents", name: "myEvents")]
